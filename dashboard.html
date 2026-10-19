@@ -3,31 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Production Dashboard - Oura Studio</title>
+    <title>Oura Identity - Central Media Studio Portal</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .portal-card {
+            background: #1f2937;
+            border: 1px solid #374151;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .portal-card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+        .portal-card h3 {
+            color: #38bdf8;
+            margin-bottom: 0.75srem;
+        }
+        .portal-card p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            margin-bottom: 1.25rem;
+        }
+        .portal-card a {
+            display: inline-block;
+            background: #0284c7;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .portal-card a:hover {
+            background: #0369a1;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Oura Media Suite</h1>
+        <h1>Oura Identity Studio Portal</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="ai-tools.html">AI Script Generator</a>
-            <a href="dashboard.html" class="active">Dashboard</a>
+            <a href="#" onclick="lockPortal()">Lock Portal</a>
         </nav>
     </header>
 
-    <div class="container">
-        <h2>Production House Operations Dashboard</h2>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem;">
-            <div style="background: #1f2937; padding: 1.5rem; border-radius: 8px; border: 1.5px solid #374151;">
-                <h3 style="color: #38bdf8; margin-bottom: 0.5rem;">Active Commercial Shoots</h3>
-                <p style="font-size: 2rem; font-weight: bold;">4 Projects</p>
+    <div class="container" id="loginBox">
+        <h2>🔒 Security Gateway</h2>
+        <p style="color: #9ca3af; margin-bottom: 1.5rem;">Enter media house secure access password to open the studio portal.</p>
+        <div class="form-group">
+            <input type="password" id="portalPassword" placeholder="Enter Access Password">
+        </div>
+        <button onclick="checkPassword()">Unlock Portal</button>
+        <p id="errorMsg" style="color: #f87171; margin-top: 1rem; text-align: center;"></p>
+    </div>
+
+    <div class="container" id="portalContent" style="display: none; max-width: 1200px;">
+        <h2>Media House Operations & Apps Hub</h2>
+        <p style="color: #9ca3af;">All connected production tools, AI engines, and management links in one place.</p>
+        
+        <div class="portal-grid">
+            <div class="portal-card">
+                <h3>AI Script Generator</h3>
+                <p>Generate 30-sec TV/Digital commercial scripts with Gemini AI.</p>
+                <a href="ai-tools.html">Open Tool</a>
             </div>
-            <div style="background: #1f2937; padding: 1.5rem; border-radius: 8px; border: 1.5px solid #374151;">
-                <h3 style="color: #38bdf8; margin-bottom: 0.5rem;">AI Scripts Generated</h3>
-                <p style="font-size: 2rem; font-weight: bold;">12 Scripts</p>
+            <div class="portal-card">
+                <h3>Client Contacts & Leads</h3>
+                <p>Manage client bookings, inquiries, and communication logs.</p>
+                <a href="contact.html">Open Tool</a>
+            </div>
+            <div class="portal-card">
+                <h3>Operations Dashboard</h3>
+                <p>Track active commercial shoots and project timelines.</p>
+                <a href="operations.html">Open Tool</a>
+            </div>
+            <div class="portal-card">
+                <h3>n8n Automation Engine</h3>
+                <p>Manage backend webhooks, AI prompts, and workflows.</p>
+                <a href="http://localhost:5678" target="_blank">Open n8n</a>
+            </div>
+            <div class="portal-card">
+                <h3>Meta Ads Manager</h3>
+                <p>Run and monitor client ad campaigns and social media reach.</p>
+                <a href="https://adsmanager.facebook.com" target="_blank">Open Meta Ads</a>
+            </div>
+            <div class="portal-card">
+                <h3>Google Cloud Console</h3>
+                <p>Monitor AI APIs, Google Analytics, and cloud services.</p>
+                <a href="https://console.cloud.google.com" target="_blank">Open Console</a>
             </div>
         </div>
     </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('portalPassword').value;
+            // Aap yahan apna password set kar sakti hain (maslan: oura123)
+            if (pass === 'oura123') {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('portalContent').style.display = 'block';
+                localStorage.setItem('portalUnlocked', 'true');
+            } else {
+                document.getElementById('errorMsg').innerText = '❌ Incorrect Password! Access Denied.';
+            }
+        }
+
+        function lockPortal() {
+            localStorage.removeItem('portalUnlocked');
+            location.reload();
+        }
+
+        // Auto unlock agar pehle se session active ho
+        window.onload = function() {
+            if (localStorage.getItem('portalUnlocked') === 'true') {
+                document.getElementById('loginBox').style.display = 'none';
+                document.getElementById('portalContent').style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
