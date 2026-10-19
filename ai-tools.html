@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Commercial Script Generator - Oura Studio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Oura Media Suite</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="ai-tools.html" class="active">AI Script Generator</a>
+            <a href="dashboard.html">Dashboard</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>AI TV Commercial Script Generator</h2>
+        <form id="scriptForm">
+            <div class="form-group">
+                <label for="brandName">Brand / Product Name:</label>
+                <input type="text" id="brandName" placeholder="e.g. Oura Apparel / Luxe Coffee" required>
+            </div>
+            <div class="form-group">
+                <label for="targetAudience">Target Audience:</label>
+                <input type="text" id="targetAudience" placeholder="e.g. Young professionals aged 20-35" required>
+            </div>
+            <button type="submit" id="generateBtn">Generate 30-Sec Script</button>
+        </form>
+
+        <div class="output-box" id="outputBox">Your generated production script will appear here...</div>
+    </div>
+
+    <script src="ai-tools.js"></script>
+</body>
+</html>
